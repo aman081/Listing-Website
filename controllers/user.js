@@ -14,7 +14,7 @@ module.exports.signup=async(req,res)=>{
     if(err){
         return next(err);
     }
-    req.flash("success","Welcome to ROAM-AN");
+    req.flash("success",`Aman welcomes ${req.user.username} :)`);
     res.redirect("/listings");
  })
   }catch(e){
@@ -29,7 +29,7 @@ module.exports.renderLogin=(req,res)=>{
 
 module.exports.login=async(req,res)=>{
  
-req.flash("success","Logged in successfully");
+req.flash("success",`Hii! ${req.user.username}.You're logged in.`);
 const redirectUrl = req.session.redirectTo || "/listings";
 delete req.session.redirectTo;
 res.redirect(redirectUrl); 
@@ -42,7 +42,7 @@ module.exports.logout=(req,res)=>{
             next(err);
         }
         else{
-            req.flash("success","Logged out successfully");
+            req.flash("success",`Logged out. BYE! See you soon.`);
             res.redirect("/listings");
         }
     })
