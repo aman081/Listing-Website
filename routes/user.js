@@ -4,8 +4,12 @@ const User=require("../models/user");
 const passport=require("passport");
 const userController=require("../controllers/user.js");
 const {saveRedirectUrl}=require("../middleware.js");
+const listingController=require("../controllers/listing.js");
+const wrapAsync=require("../utils/wrapAsync");
 
 
+
+router.get("/",wrapAsync(listingController.index));
 router.get("/signup",userController.renderSignup);
 
 router.post("/signup",userController.signup);
