@@ -1,0 +1,92 @@
+<%- layout('/layouts/boilerplate') -%>
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6 mt-4">
+        <h3>Create a New Listing</h3>
+        <form method="POST" action="/listings" class="needs-validation" novalidate enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" name="title" id="title" class="form-control" placeholder="Enter title" required>
+                <div class="invalid-feedback">
+                    Title is required!
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea name="description" id="description" rows="6" class="form-control" placeholder="Enter description" required></textarea>
+                <div class="invalid-feedback">
+                    Description is required!
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="image" class="form-label">Upload Image</label>
+                <input type="file" name="image" id="image" class="form-control">
+            </div>  
+            <div class="row">
+                <div class="mb-3 col-md-4">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="number" name="price" id="price" class="form-control" placeholder="30000" required min="0">
+                    <div class="invalid-feedback">
+                        Please enter a valid price!
+                    </div>
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label for="country" class="form-label">Country</label>
+                    <input type="text" name="country" id="country" class="form-control" placeholder="India (IN)" required>
+                    <div class="invalid-feedback">
+                        Country is required!
+                    </div>
+                </div>
+                <div class="mb-3 col-md-4">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" name="location" id="location" class="form-control" placeholder="Hazaribagh, Jharkhand" required>
+                    <div class="invalid-feedback">
+                        Location is required!
+                    </div>
+                </div>
+            </div>
+
+            <!-- Category Dropdown -->
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select name="category" id="category" class="form-select" required>
+                    <option value="" disabled selected>Select a category</option>
+                    <option value="beach">Beach</option>
+                    <option value="nature">Nature</option>
+                    <option value="rooms">Rooms</option>
+                    <option value="citylife">CityLife</option>
+                    <option value="mountain">Mountain</option>
+                    <option value="arctic">Arctic</option>
+                    <option value="farm">Farm</option>
+                    <option value="camping">Camping</option>
+                    <option value="castle">Castle</option>
+                    <option value="trending">Trending</option>
+                </select>
+                <div class="invalid-feedback">
+                    Category is required!
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button class="btn btn-dark col-md-4 mb-3" type="submit">Add Listing</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+// Form validation script
+(function () {
+    'use strict'
+    var forms = document.querySelectorAll('.needs-validation')
+    Array.prototype.slice.call(forms).forEach(function (form) {
+        form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+                event.preventDefault()
+                event.stopPropagation()
+            }
+            form.classList.add('was-validated')
+        }, false)
+    })
+})()
+</script>
+

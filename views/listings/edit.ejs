@@ -1,0 +1,87 @@
+<%- layout('/layouts/boilerplate') -%>
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6 mt-4">
+        <h3>Edit Listing</h3>
+        <form method="POST" action="/listings/<%= reqListing._id %>?_method=PUT" class="needs-validation" novalidate enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="title" class="form-label">Title</label>
+                <textarea name="title" class="form-control" required><%= reqListing.title %></textarea>
+                <div class="invalid-feedback">Title is required!</div>
+            </div>
+          
+            <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea name="description" rows="6" class="form-control" required><%= reqListing.description %></textarea>
+                <div class="invalid-feedback">Description is required!</div>
+            </div>
+
+            <div class="mb-3">
+                <img src="<%= reqListing.image.url %>" alt="Image Preview" class="img-thumbnail" style="max-width: 150px;">
+            </div>
+
+            <div class="mb-3">
+                <label for="image" class="form-label">Image</label>
+                <input type="file" name="image" value="<%= reqListing.image.filename %>" class="form-control">
+                <div class="invalid-feedback">Image is required!</div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="category" class="form-label">Category</label>
+                <select name="category" class="form-control" required>
+                    <option value="beach" <%= reqListing.category === 'beach' ? 'selected' : '' %>>Beach</option>
+                    <option value="nature" <%= reqListing.category === 'nature' ? 'selected' : '' %>>Nature</option>
+                    <option value="rooms" <%= reqListing.category === 'rooms' ? 'selected' : '' %>>Rooms</option>
+                    <option value="citylife" <%= reqListing.category === 'citylife' ? 'selected' : '' %>>CityLife</option>
+                    <option value="mountain" <%= reqListing.category === 'mountain' ? 'selected' : '' %>>Mountain</option>
+                    <option value="arctic" <%= reqListing.category === 'arctic' ? 'selected' : '' %>>Arctic</option>
+                    <option value="farm" <%= reqListing.category === 'farm' ? 'selected' : '' %>>Farm</option>
+                    <option value="camping" <%= reqListing.category === 'camping' ? 'selected' : '' %>>Camping</option>
+                    <option value="castle" <%= reqListing.category === 'castle' ? 'selected' : '' %>>Castle</option>
+                    <option value="trending" <%= reqListing.category === 'trending' ? 'selected' : '' %>>Trending</option>
+                </select>
+                <div class="invalid-feedback">Category is required!</div>
+            </div>
+            
+            <div class="row">
+                <div class="mb-3 col-md-4">
+                    <label for="price" class="form-label">Price</label>
+                    <input type="number" name="price" value="<%= reqListing.price %>" class="form-control" required>
+                    <div class="invalid-feedback">Price is required!</div>
+                </div>
+
+                <div class="mb-3 col-md-4">
+                    <label for="country" class="form-label">Country</label>
+                    <input type="text" name="country" value="<%= reqListing.country %>" class="form-control" required>
+                    <div class="invalid-feedback">Country is required!</div>
+                </div>
+
+                <div class="mb-3 col-md-4">
+                    <label for="location" class="form-label">Location</label>
+                    <input type="text" name="location" value="<%= reqListing.location %>" class="form-control" required>
+                    <div class="invalid-feedback">Location is required!</div>
+                </div>
+            </div>
+
+            <div class="text-center">
+                <button class="btn cl">Edit Listing</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    (() => {
+        'use strict'
+        const forms = document.querySelectorAll('.needs-validation')
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
+

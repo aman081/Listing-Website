@@ -1,0 +1,19 @@
+{
+    "editor.quickSuggestions": {
+        "strings": true,
+        "other": true,
+        "comments": true
+    },
+    "editor.suggestOnTriggerCharacters": true,
+    "editor.acceptSuggestionOnEnter": "on",
+    "editor.snippetSuggestions": "top",
+    "editor.wordBasedSuggestions": "matchingDocuments",
+    "editor.parameterHints.enabled": true,
+    "editor.inlineSuggest.enabled": true,
+    "files.associations": {
+        "*.ejs": "html"
+    },
+    "emmet.includeLanguages": {
+        "ejs": "html"
+    }
+} 

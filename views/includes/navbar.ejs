@@ -1,0 +1,47 @@
+<nav class="navbar navbar-expand-md bg-body-tertiary sticky-top">
+  <div class="container-fluid px-0">
+    <a class="navbar-brand px-3" href="/listings"><i class="fa-brands fa-rockrms"></i></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
+      aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse new" id="navbarNavAltMarkup">
+      <div class="navbar-nav">
+        <a class="nav-link px-3" href="/listings">Explore</a>
+        <a class="nav-link px-3" href="/listings/new">Add Listing</a>
+      </div>
+
+      <!-- 🔍 Search Box -->
+      <form class="d-flex mx-auto" role="search" action="/listings/search" method="GET" style="max-width: 500px; width: 100%;">
+        <input 
+          class="form-control me-2 rounded-pill" 
+          type="search" 
+          placeholder="SEARCH FOR LISTINGS..." 
+          aria-label="Search" 
+          name="q"
+          style="height: 45px; font-size: 1rem;"
+        >
+        <button 
+          class="btn btn-outline-dark rounded-pill" 
+          type="submit"
+          style="height: 45px; width: 100px; font-size: 1rem; background-color: #fe424d; border: none; transition: background-color 0.3s ease;"
+          onmouseover="this.style.backgroundColor='#f04c56'"
+          onmouseout="this.style.backgroundColor='#fe424d'"
+        >
+          Search
+        </button>
+      </form>
+      
+
+      <div class="navbar-nav ms-auto">
+        <% if (!currUser) { %>
+          <a class="nav-link px-3" href="/signup"><b>SignUp</b></a>
+          <a class="nav-link px-3" href="/login"><b>Login</b></a>
+        <% } else { %>
+          <a class="nav-link px-3" href="/logout"><b>Logout</b></a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>

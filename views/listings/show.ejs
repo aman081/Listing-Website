@@ -1,0 +1,163 @@
+<%- layout('/layouts/boilerplate') -%>
+    <div class="row justify-content-center">
+        <div class="col-8 mt-4">
+            <h3>
+                <%= reqListing.title %>
+            </h3>
+            <div class="card show-listing-card">
+                <div class="card-img-container">
+                    <img src="<%= reqListing.image.url %>" class="show-img">
+                </div>
+                <div class="card-body">
+                    <p class="card-text mb-3">Owned By <%=reqListing.owner.username %>
+                    </p>
+                    <p class="card-text mb-3">
+                        <%= reqListing.description %>
+                    </p>
+                    <p class="card-text">
+                        <i class="fa-solid fa-indian-rupee-sign"></i>
+                        <span class="fw-bold">
+                            <%= reqListing.price.toLocaleString("en-IN") %>/day
+                        </span>
+                    </p>
+                    <p class="card-text">
+                        <i class="fa-solid fa-location-dot"></i>
+                        <%= reqListing.location %>, <%= reqListing.country %>
+                    </p>
+                </div>
+            </div>
+
+            <% if (currUser && currUser._id.equals(reqListing.owner._id)) { %>
+                <div class="btns mt-3 mb-3">
+                    <a href="/listings/<%=reqListing._id%>/edit" class="btn cl">Edit</a>
+                    <form method="POST" action="/listings/<%=reqListing._id%>?_method=DELETE">
+                        <button class="btn btn-dark">Delete</button>
+                    </form>
+                </div>
+                <% } %>
+
+                    <hr>
+                    <% if(currUser){ %>
+                        <div>
+
+                            <form method="POST" action="/listings/<%=reqListing._id%>/reviews" class="needs-validation"
+                                novalidate>
+                                <h3>Leave a Review</h3>
+                                <label for="rating" class="form-label">Rating</label>
+                                <select class="form-select" id="rating" name="rating" required>
+                                    <option value="">Select a rating</option>
+                                    <option value="1">1 ★</option>
+                                    <option value="2">2 ★★</option>
+                                    <option value="3">3 ★★★</option>
+                                    <option value="4">4 ★★★★</option>
+                                    <option value="5">5 ★★★★★</option>
+                                </select>
+                                <label for="comment" class="form-label">Comment</label><br>
+                                <textarea id="comment" name="comment" rows="5" class="form-control"
+                                    required></textarea><br>
+                                <div class="invalid-feedback">Please provide both a rating and comment!</div>
+                                <button type="submit" class="btn btn-outline-dark mb-4">Submit</button>
+                            </form>
+                        </div>
+
+                        <hr>
+                        <% } %>
+
+                            <% if(reqListing.reviews.length>0) { %>
+                                <p><b>
+                                        <h3>All Reviews</h3>
+                                    </b></p>
+                                <div class="row row-cols-1 row-cols-md-2 g-4 mb-4">
+
+                                    <% for(review of reqListing.reviews){%>
+                                        <div class="col">
+                                            <div class="card h-100 shadow-sm border border-2">
+                                                <div class="card-body">
+                                                    <h5 class="card-title mb-3">
+                                                        <%= review.author.username %>
+                                                    </h5>
+                                                    <p class="card-text mb-3">
+                                                        <%= review.comment %>
+                                                    </p>
+                                                    <p class="card-text mb-0">
+                                                        <% for(let i=0; i < review.rating; i++) { %>
+                                                            <i class="fa-solid fa-star text-warning"></i>
+                                                            <% } %>
+                                                    </p>
+                                                </div>
+                                                <% if(currUser && review.author &&
+                                                    review.author._id.equals(currUser._id)) { %>
+                                                    <div class="card-footer bg-transparent border-0">
+                                                        <form method="POST"
+                                                            action="/listings/<%=reqListing._id %>/reviews/<%=review._id%>?_method=DELETE">
+                                                            <button class="btn btn-dark ms-3 mb-3">Delete</button>
+                                                        </form>
+                                                    </div>
+                                                    <% } %>
+                                            </div>
+
+                                        </div>
+
+                                        <%}%>
+                                </div>
+                                <% } %>
+
+        </div>
+        <div class=" mb-3 col-8 mt-4">
+            <h3>Where you will be</h3>
+           <div id="map" data-coordinates="<%= JSON.stringify(reqListing.geometry.coordinates) %>"></div>
+
+        </div>
+    </div>
+
+    <script>
+      
+    window.onload = () => {
+        const mapDiv = document.getElementById('map');
+        const coordinates = JSON.parse(mapDiv.dataset.coordinates); // [longitude, latitude]
+
+        // Leaflet expects [latitude, longitude]
+        const lat = coordinates[1];
+        const lng = coordinates[0];
+
+        // Initialize the map
+        const map = L.map('map').setView([lat, lng], 13);
+
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+
+        // Add marker
+        L.marker([lat, lng])
+            .addTo(map)
+            .bindPopup("<%= reqListing.title %> - <%= reqListing.location %>")
+            .openPopup();
+    
+
+
+       
+
+
+
+            (() => {
+                'use strict'
+
+                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                const forms = document.querySelectorAll('.needs-validation')
+
+                // Loop over them and prevent submission
+                Array.from(forms).forEach(form => {
+                    form.addEventListener('submit', event => {
+                        if (!form.checkValidity()) {
+                            event.preventDefault()
+                            event.stopPropagation()
+                        }
+
+                        form.classList.add('was-validated')
+                    }, false)
+                })
+            })()
+        };
+        
+    </script>
