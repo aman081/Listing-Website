@@ -19,7 +19,12 @@
         align-items: center;
     }
 
-    /* Filter option buttons */
+    /* Filter option buttons - visible on larger screens */
+    .filter-options-row {
+        display: none; /* Hidden by default */
+    }
+
+    /* Filter option styling */
     .filter-option {
         display: flex;
         flex-direction: column;
@@ -35,11 +40,6 @@
         background: #e9ecef;
         transform: translateY(-2px);
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    }
-    .filter-option.active {
-        background: #0d6efd;
-        color: white;
-        border-color: #0d6efd;
     }
     .filter-option i {
         font-size: 1.25rem;
@@ -61,10 +61,6 @@
         background: white;
         border: 1px solid #e9ecef;
         box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-        transition: all 0.2s ease;
-    }
-    .tax-switch:hover {
-        border-color: #ced4da;
     }
     .form-check-input {
         width: 2.5em;
@@ -75,7 +71,11 @@
         color: #495057;
     }
 
-    /* Dropdown styling */
+    /* Dropdown styling - visible on smaller screens */
+    .filter-dropdown {
+        display: block; /* Visible by default */
+        flex-grow: 1;
+    }
     .filter-dropdown .btn {
         width: 100%;
         display: flex;
@@ -87,11 +87,6 @@
         border: 1px solid #e9ecef;
         color: #495057;
         font-weight: 500;
-        transition: all 0.2s ease;
-    }
-    .filter-dropdown .btn:hover {
-        background: #f8f9fa;
-        border-color: #ced4da;
     }
     .dropdown-menu {
         border-radius: 12px;
@@ -107,33 +102,32 @@
         align-items: center;
         gap: 0.75rem;
     }
-    .dropdown-item:hover {
-        background: #f8f9fa;
-    }
     .dropdown-item i {
         width: 20px;
         text-align: center;
     }
 
     /* Responsive behavior */
-    @media (min-width: 950px) {
+    @media (min-width: 1065px) {
         .filter-options-row {
-            display: flex;
+            display: flex; /* Show ALL filter options */
             gap: 0.75rem;
             flex-wrap: wrap;
+        }
+        .filter-dropdown {
+            display: none; /* Hide dropdown */
         }
         .tax-switch {
             margin-left: auto;
         }
     }
 
-    @media (max-width: 949px) {
+    @media (max-width: 1064px) {
         .filter-options-row {
-            display: none;
+            display: none; /* Hide filter options */
         }
         .filter-dropdown {
-            display: block;
-            flex-grow: 1;
+            display: block; /* Show dropdown */
         }
     }
 
@@ -171,7 +165,7 @@
             </ul>
         </div>
 
-        <!-- Filter options row for larger screens -->
+        <!-- Filter options row for larger screens - ALL OPTIONS INCLUDED -->
         <div class="filter-options-row">
             <a href="/listings/filter?category=trending" class="filter-option">
                 <i class="fa-solid fa-fire"></i>
@@ -215,7 +209,7 @@
             </a>
         </div>
 
-        <!-- Tax switch (always visible) -->
+        <!-- Tax switch -->
         <div class="tax-switch">
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="switchCheckDefault">
