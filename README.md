@@ -1,0 +1,6 @@
+◦ Built a full-stack platform for adding, editing, viewing and giving review to Listings.
+◦ Implemented CRUD operations on Listing, User and Review models.
+◦ Supports authentication by allowing only logged-in users to add listing or give ratings and reviews.
+◦ Supports authorization by restricting the access to edit and delete listings or reviews added by other users.
+◦ Integrated map feature using Mapbox and file upload using Claudinary.
+◦ Technologies Used: HTML, CSS, React.js, Passport.js, Express, MongoDB, EJS
